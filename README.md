@@ -1,9 +1,18 @@
 # Debt Payment Calculator
- A simple and interactive debt payment calculator built with Python and Streamlit. This project allows users to input various debt parameters (e.g., principal, interest rate, payment amount) and visualize their repayment schedule, helping them strategize their debt management.
 
-## Streamlit Demo
+A simple and interactive debt payment calculator built with Python and Streamlit. This tool helps you visualize your repayment schedule and strategize your debt management by simulating various scenarios.
 
-[https://debt-payment-calculator.streamlit.app/](https://debt-payment-calculator.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://debt-payment-calculator.streamlit.app/)
+
+## Features
+
+*   Calculate and visualize your loan repayment schedule.
+*   Simulate the impact of lump-sum payments.
+*   Model changes in adjustable interest rates.
+*   See how shortening the loan term affects your payments.
+*   Factor in payment holidays.
+*   Compare your original loan with the simulated scenarios.
+*   Available in English and Polish.
 
 ## Getting Started
 
@@ -14,72 +23,73 @@
 
 ### Installation
 
-**Install dependencies:**
+1.  **Clone the repository (optional):**
+    If you want to run the project locally, clone the repository.
+    ```bash
+    git clone https://github.com/m-stafinski/debt-payment-calculator.git
+    cd debt-payment-calculator
+    ```
 
-```bash
-pip install -r requirements.txt
-```
-or
-```bash
-pip install streamlit streamlit-tags
-```
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    Alternatively, you can install the packages individually:
+    ```bash
+    pip install streamlit streamlit-tags
+    ```
 
----
+### Running the App
 
-## Usage
-
-After installation, launch the Streamlit app:
-
-
+Launch the Streamlit app from your terminal:
 ```bash
 streamlit run debt_calc.py
 ```
+This will open the calculator in your web browser.
 
-This will open the calculator in your web browser. You can then interact with the input fields and view the results.
+## How to Use
 
-### Sidebar
+### Step 1: Set Your Loan Details (Sidebar)
 
-Fill all necessary information about you loan.
+In the sidebar on the left, enter the initial details of your loan:
+*   **Credit Principle Amount:** The total amount of your loan.
+*   **Fixed Rate (%):** The fixed portion of your interest rate.
+*   **Adjustable Rate (%):** The variable portion of your interest rate (e.g., WIBOR/POLSTR).
+*   **Number of Payments (months):** The total term of your loan in months.
+*   **Start Date:** The date your loan payments begin.
+*   **Adjust Payment Holidays:** Enable this to add payment-free months.
+*   **Show % of principle in installment:** Toggle the second chart to show the percentage of principal in each installment.
 
-Payment Holiday - is a short-term pause from your monthly payments
+### Step 2: Simulate Scenarios (Main Window)
 
-### Main Window
+In the main panel, you can add different scenarios to see how they affect your loan.
 
-Fill all necessary information about:
-- addtional principle payment
-    - for example if you would like to make an additional lump sum payment of 10 000 in March 2026, then add **2026-03,10000**
-- adjustable rate
-    - for example if your adjustable rate have increased by +0,25% in March 2026, then add **2026-04,0.0025**. You should provide the month when the change will have an impact on the interest rate.
-    In case of decrease use minus sign **2026-04,-0.0025**.
-- short term
-    - for example if you would like to short the term of the loan by 5 years (60 months), then add **2026-03,60**. Make sure that the value will be **positive** months number of the period.
+*   **Lump Sum Payment:** To make an extra payment.
+    *   **Format:** `YYYY-MM,amount`
+    *   **Example:** To pay an additional 10,000 in March 2026, enter `2026-03,10000`.
 
-#### Metrics
+*   **Change Adjustable Rate:** To model a change in your variable interest rate.
+    *   **Format:** `YYYY-MM,change`
+    *   **Example:** For a 0.25% rate increase in April 2026, enter `2026-04,0.0025`. For a decrease, use a negative sign, like `2026-04,-0.0025`.
 
-- Total Interest - how much insterests you will pay for loan
+*   **Short Loan Term:** To see the effect of shortening your loan's term after a lump-sum payment.
+    *   **Format:** `YYYY-MM,months`
+    *   **Example:** To shorten the loan term by 5 years (60 months) starting in March 2026, enter `2026-03,60`.
 
-- Payoff Date - date when loan will be fully paid
+*   **Adjust Payment Holidays:** If enabled in the sidebar, you can add payment holidays.
+    *   **Format:** `YYYY-MM,0`
+    *   **Example:** To skip the payment in August 2025, enter `2025-08,0`.
 
-- Sum of Additional Payments - payment you have provided previously
+### Step 3: Analyze the Results
 
-- Percent of Additional Payments - how much did you paid by addtional payments. Example you have 250 000 to pay, 150 000 you paid by addtional payments (60%), 100 000 you pain within installements (40%)
+*   **Metrics:** Key figures like total interest, payoff date, and the sum of your additional payments are displayed at the top.
+*   **Charts:**
+    1.  The first chart visualizes your remaining loan principal and the total interest paid over time, comparing the original schedule with your simulated scenario.
+    2.  The second chart shows your monthly installment amount or the percentage of principal within each installment.
+*   **Data Tables:** Two expandable tables at the bottom provide a detailed month-by-month breakdown of your payments for both the simulated and original loan schedules.
 
-#### Charts
+## Disclaimer
 
-- Overall sum of interests you will pay and how much principle is left
-
-- Changes for monthly installement.
-    - If you change in settings 
-    - [ ] Show % of principle in installement
-    - Then it will show what is the percentage of principle in the installement.
-
-#### Tables
-
-- Details about all monthly installements after all calculations
-
-- The same information without calculations of addtional payment and short term (the adjustble rate changes will be calculated)
-
-#### Disclaimer
-This debt calculator (the "Tool") is provided for informational and educational purposes only.
+This debt calculator (the "Tool") is provided for informational and educational purposes only. The calculations and results generated by this Tool are estimates based solely on the information you input and are intended for general illustration only. Always consult with a qualified financial advisor before making any financial decisions.
 
 

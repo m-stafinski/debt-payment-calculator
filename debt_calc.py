@@ -1,3 +1,4 @@
+# streamlit run ./debt_calc.py --server.headless true
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -149,6 +150,9 @@ def language_dict(language):
                 **User Responsibility:**\n
                 Your use of this Tool is entirely at your own risk. You acknowledge and agree that you are solely responsible for any decisions or actions taken in reliance upon or as a result of the information provided by this Tool. We disclaim all liability and responsibility for any loss of any kind whatsoever, which may result from the use of, or reliance on, the estimates or information provided by this Tool.\n
             """,
+            'descr': """
+            First, set your primary loan details like principle, interest rates, and loan term in the sidebar. Next, add scenarios such as lump-sum payments or rate changes in the main panel to see their effect. Finally, review the summary metrics, charts, and detailed tables to understand the impact on your loan.
+            """,
 
         }
     elif language == 'Polski':
@@ -188,20 +192,23 @@ def language_dict(language):
                 **Odpowiedzialność użytkownika:**\n
                 Korzystanie z tego Narzędzia odbywa się wyłącznie na własne ryzyko. Potwierdzasz i zgadzasz się, że ponosisz wyłączną odpowiedzialność za wszelkie decyzje lub działania podjęte w oparciu o informacje dostarczone przez to Narzędzie lub w ich wyniku. Zrzekamy się wszelkiej odpowiedzialności za wszelkie straty jakiegokolwiek rodzaju, które mogą wyniknąć z użytkowania lub polegania na szacunkach lub informacjach dostarczonych przez to Narzędzie.\n
             """,
+            'descr': """
+            Najpierw ustaw w panelu bocznym podstawowe szczegóły kredytu, takie jak kapitał, oprocentowanie i okres kredytowania. Następnie w panelu głównym dodaj scenariusze, takie jak nadpłaty lub zmiany stóp procentowych, aby zobaczyć ich wpływ. Na koniec przejrzyj podsumowanie, wykresy i szczegółowe tabele, aby zrozumieć wpływ zmian na Twój kredyt.
+            """,
+
         }
     else:
         return {}
 
 if __name__ == "__main__":
 
-    version = '1.0.0'
+    version = '1.0.1'
 
     with st.sidebar:
         lang_list = ['English', 'Polski']
         language = st.pills('', lang_list, selection_mode='single', default=lang_list[0], label_visibility="collapsed")
         language = language_dict(language)
-        st.header(language['settings'])
-        st.write(f"{language['version']}: {version}")
+        st.write(f"{language['settings']} - {language['version']}: {version}")
         st.write('---')
         st.session_state['credit_principle'] = st.number_input(language['credit_principle'], min_value=1000, value=185000, step=1000)
         st.session_state['margin'] = st.number_input(language['margin'], min_value=0.0, value=1.75, step=0.01)
@@ -211,7 +218,8 @@ if __name__ == "__main__":
         st.session_state['vacations_toggle'] = st.checkbox(language['vacations'], value=False)
         st.session_state['perc_toggle'] = st.checkbox(language['show_prec_principle'], value=False)
     
-    st.title(language['title'])
+    st.header(language['title'])
+    st.text(language['descr'])
 
     st.session_state['settings'] = {
         'credit_principle': st.session_state['credit_principle'],
